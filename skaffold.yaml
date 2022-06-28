@@ -1,0 +1,40 @@
+apiVersion: skaffold/v2beta3
+kind: Config
+metadata:
+  name: ticket-skaffold
+deploy:
+  kubectl:
+    manifests:
+    - ./k8s/*
+build:
+  local:
+    push: false
+  artifacts:
+  
+  - image: rhythmshandlya/tickets
+    context: tickets
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual: 
+      - src: "src/**/*.ts"
+        dest: "."
+
+  - image: rhythmshandlya/auth
+    context: auth
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+      - src: "src/**/*.ts"
+        dest: "."
+
+  - image: rhythmshandlya/client
+    context: client
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+      - src: "**/*.js"
+        dest: "."
+

@@ -1,0 +1,4 @@
+If mongodb stops!
+ -sudo systemctl restart mongod
+
+kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
